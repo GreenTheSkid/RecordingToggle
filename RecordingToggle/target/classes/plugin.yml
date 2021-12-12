@@ -1,0 +1,13 @@
+name: Recordingtoggle
+version: '1.0-SNAPSHOT'
+main: com.green.recordingtoggle.recordingtoggle.Recordingtoggle
+api-version: 1.18
+authors: [ Green ]
+description: Toggle a recording status in-game!
+depend:
+  - Essentials
+commands:
+  Recording:
+    description: Toggles recording status
+    usage: /<command>
+
