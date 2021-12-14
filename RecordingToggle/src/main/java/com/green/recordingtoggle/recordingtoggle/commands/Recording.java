@@ -37,11 +37,13 @@ public class Recording implements CommandExecutor, Listener{
 
 
         if (cmd.getName().equalsIgnoreCase("Recording")) {
-            if (sender.hasPermission("RecordingToggle.Recording")) {
+            if (!sender.hasPermission("RecordingToggle.Recording")) {
+                player.sendMessage(Utils.color("&cYou dont have permission to use this command!"));
+                return true;
 
-                sender.sendMessage(Utils.color("&eYour recording status has been "+(recordHandlerList.toggle(player) ? "&a&lENABLED" : "&cDISABLED" )));
             }
-
+            sender.sendMessage(Utils.color("&eYour recording status has been "+(recordHandlerList.toggle(player) ? "&a&lENABLED" : "&cDISABLED" )));
+            
         }
 
         return true;
