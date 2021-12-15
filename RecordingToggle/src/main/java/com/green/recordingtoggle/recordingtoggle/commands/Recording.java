@@ -7,6 +7,7 @@ import com.earth2me.essentials.messaging.SimpleMessageRecipient;
 import com.green.recordingtoggle.recordingtoggle.Utilities.RecordHandlerList;
 import com.green.recordingtoggle.recordingtoggle.Utilities.Utils;
 import net.ess3.api.events.PrivateMessageSentEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,6 +24,7 @@ public class Recording implements CommandExecutor, Listener{
     JavaPlugin plugin = JavaPlugin.getProvidingPlugin(Recording.class);
     FileConfiguration config = plugin.getConfig();
     String Recordingmessage = config.getString("Recordingmessage");
+    String Recordingbroadcast = config.getString("Recordingbroadcast");
     final RecordHandlerList recordHandlerList = RecordHandlerList.getInstance();
 
     @Override
@@ -43,7 +45,8 @@ public class Recording implements CommandExecutor, Listener{
 
             }
             sender.sendMessage(Utils.color("&eYour recording status has been "+(recordHandlerList.toggle(player) ? "&a&lENABLED" : "&cDISABLED" )));
-            
+            Bukkit.broadcastMessage(Utils.color(Recordingbroadcast).replaceAll("%player%", player.getName()));
+
         }
 
         return true;
@@ -55,7 +58,7 @@ public class Recording implements CommandExecutor, Listener{
     public void onDM(PrivateMessageSentEvent e) {
         Player sender = getPlayer(e.getSender());
         if (sender != null && recordHandlerList.isPlayerRecording(getPlayer(e.getRecipient()))) {
-            sender.sendMessage(Utils.color("&c" + e.getRecipient().getName() + " " + Recordingmessage));
+            sender.sendMessage(Utils.color((Recordingmessage).replaceAll("%player%", e.getRecipient().getName())));
         }
     }
 
